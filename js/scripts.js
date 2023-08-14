@@ -1,10 +1,8 @@
 window.addEventListener("load", submit);
-window.addEventListener("reset", submit);
+window.addEventListener("reset", hideResults);
 
 let favoriteThingsArray = [];
 let favoriteThingsRearrangedArray = [];
-
-appendHTML();
 
 function submit() {
   const form = document.getElementById("survey");
@@ -16,6 +14,7 @@ function processInput(event) {
 
   getInput();
   newlyArrangedArray();
+  appendHTML();
   populateFields();
 }
 
@@ -37,33 +36,42 @@ function newlyArrangedArray() {
   // console.log("This is what's in favoriteThingsRearranged: " + favoriteThingsRearrangedArray);
 }
 
+let ulTag = document.createElement("ul");
+let liTag1 = document.createElement("li");
+let liTag2 = document.createElement("li");
+let liTag3 = document.createElement("li");
+
 function appendHTML() {
-  window.onload = function () {
 
-    let ulTag = document.createElement("ul");
-    let form = document.getElementById("survey");
-    form.after(ulTag);
-    let liTag1 = document.createElement("li");
-    let liTag2 = document.createElement("li");
-    let liTag3 = document.createElement("li");
-    ulTag.append(liTag1);
-    liTag1.after(liTag2);
-    liTag2.after(liTag3);
-    liTag1.setAttribute("id", "list-item-1");
-    liTag2.setAttribute("id", "list-item-2");
-    liTag3.setAttribute("id", "list-item-3");
+  let form = document.getElementById("survey");
+  form.after(ulTag);
+  ulTag.append(liTag1);
+  liTag1.after(liTag2);
+  liTag2.after(liTag3);
+  liTag1.setAttribute("id", "list-item-1");
+  liTag2.setAttribute("id", "list-item-2");
+  liTag3.setAttribute("id", "list-item-3");
 
 
-  }
 }
 
 function populateFields() {
-  // console.log(favoriteThingsRearrangedArray[0]);
-  let liTag1 = document.getElementById("list-item-1");
-  let liTag2 = document.getElementById("list-item-2");
-  let liTag3 = document.getElementById("list-item-3");
-  liTag1.append(favoriteThingsRearrangedArray[0]);
-  liTag2.append(favoriteThingsRearrangedArray[1]);
-  liTag3.append(favoriteThingsRearrangedArray[2]);
+  console.log(favoriteThingsRearrangedArray[0]);
+  let liTag1FromArray = document.getElementById("list-item-1");
+  let liTag2FromArray = document.getElementById("list-item-2");
+  let liTag3FromArray = document.getElementById("list-item-3");
+  liTag1FromArray.append(favoriteThingsRearrangedArray[0]);
+  liTag2FromArray.append(favoriteThingsRearrangedArray[1]);
+  liTag3FromArray.append(favoriteThingsRearrangedArray[2]);
+
+}
+
+function hideResults() {
+  favoriteThingsArray.splice(0, favoriteThingsArray.length);
+  favoriteThingsRearrangedArray.splice(0, favoriteThingsRearrangedArray.length);
+  ulTag.remove();
+  liTag1.innerText = null;
+  liTag2.innerText = null;
+  liTag3.innerText = null;
 
 }
